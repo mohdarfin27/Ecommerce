@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Image from PostgreSQL</title>
+</head>
+<body>
+  <img id="image" src="" alt="Image">
+  <script>
+    const imageId = 1; // Set the ID of the image to retrieve
+    fetch(`/image/${imageId}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.blob();
+      })
+      .then(blob => {
+        const imageUrl = URL.createObjectURL(blob);
+        document.getElementById('image').src = imageUrl;
+      })
+      .catch(error => {
+        console.error('Error fetching image:', error);
+      });
+  </script>
+</body>
+</html>
